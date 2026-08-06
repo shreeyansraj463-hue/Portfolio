@@ -1,15 +1,15 @@
-export const metadata = {
-  title: 'Portfolio - Scrollytelling',
-  description: 'High-end scrollytelling portfolio',
-}
+import './globals.css';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Shreeyans Raj — Portfolio',
+  description: 'Scrollytelling portfolio — creative developer',
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <head />
-      <body>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
-  )
+  );
 }

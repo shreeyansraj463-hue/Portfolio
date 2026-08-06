@@ -19,9 +19,19 @@ html {
 @tailwind components;
 @tailwind utilities;
 
-/* Small helpers for glassmorphism (use in Projects later) */
+/* Glass helper */
 .glass {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.06);
   backdrop-filter: blur(8px);
 }
+
+/* Page helpers */
+.bg-bg { background-color: var(--bg); }
+
+/* Utility tweaks for the canvas container */
+.h-[500vh] { height: 500vh; }
+
+/* responsive text */
+.text-5xl { font-size: 3rem; }
+@media (min-width: 768px) { .md\:text-6xl { font-size: 4rem; } }
