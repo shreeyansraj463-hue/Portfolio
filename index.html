@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shreeyans Raj — Scrollytelling Portfolio</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <!-- thin top progress bar -->
+  <div id="scrubProg" class="scrub-progress" aria-hidden="true"></div>
+
+  <!-- fixed profile hero -->
+  <aside class="hero" role="region" aria-label="Profile">
+    <div class="glass card-hero">
+      <img id="profileImg" class="avatar" src="assets/profile.jpg" alt="Shreeyans Raj — profile">
+      <div class="hero-meta">
+        <div class="name">Shreeyans Raj</div>
+        <div class="role">Creative Developer · Frontend & Interactive</div>
+        <div class="meta">JEE aspirant • WebGL • AI tools</div>
+      </div>
+    </div>
+
+    <div class="glass card-mini">
+      <div>
+        <div class="muted small">Location</div>
+        <div class="small">Patna, India</div>
+      </div>
+      <div class="text-right">
+        <div class="muted small">Availability</div>
+        <div class="small">Open to projects</div>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a class="glass btn" href="#" onclick="alert('Replace with your GitHub URL')">GitHub</a>
+      <a class="glass btn" href="#" onclick="alert('Replace with portfolio link')">Portfolio</a>
+    </div>
+  </aside>
+
+  <!-- Scrollytelling container (500vh) -->
+  <section id="scroller" class="scroller">
+    <div class="sticky-viewport">
+      <div class="canvas-viewport">
+        <canvas id="seqCanvas" role="img" aria-label="Animated profile sequence"></canvas>
+
+        <div id="loading" class="loading-wrap" aria-hidden="false">
+          <div class="loading-chip">Loading frames — <span id="loadingPct">0%</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overlay text -->
+  <div class="overlay" aria-hidden="true">
+    <div id="secCenter" class="overlay-center">
+      <h1 class="title-xl">My Name. Creative Developer.</h1>
+    </div>
+
+    <div id="secLeft" class="overlay-left">
+      <h2 class="title-lg">I build digital experiences.</h2>
+    </div>
+
+    <div id="secRight" class="overlay-right">
+      <h2 class="title-lg">Bridging design and engineering.</h2>
+    </div>
+  </div>
+
+  <!-- Main content after scrollytelling -->
+  <main class="main-content">
+    <section class="intro">
+      <div class="container">
+        <h2>Work & Interests</h2>
+        <p class="lead">Front-end experiments with Three.js, generative visuals, scrollytelling and AI-assisted tooling.</p>
+
+        <div class="grid projects">
+          <article class="project-card glass">
+            <div class="project-visual"></div>
+            <h3>Project A</h3>
+            <p>Interactive particle system — Three.js + shaders.</p>
+            <button class="btn-outline">View case</button>
+          </article>
+
+          <article class="project-card glass">
+            <div class="project-visual"></div>
+            <h3>Project B</h3>
+            <p>Generative visuals & motion systems.</p>
+            <button class="btn-outline">View case</button>
+          </article>
+
+          <article class="project-card glass">
+            <div class="project-visual"></div>
+            <h3>Project C</h3>
+            <p>Scrollytelling prototypes & experimental UI.</p>
+            <button class="btn-outline">View case</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="about container glass about-card">
+      <h3>About</h3>
+      <p><strong>Shreeyans Raj</strong> — JEE aspirant and creative developer. Focused on advanced math, physics, generative visuals, and interactive web experiences. Loves music, sketches, and helping others.</p>
+    </section>
+
+    <footer class="container footer">
+      © <strong>Shreeyans Raj</strong> — crafted with care.
+    </footer>
+  </main>
+
+  <script src="js/app.js" defer></script>
+</body>
+</html>
