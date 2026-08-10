@@ -1,10 +1,12 @@
 "use client";
 
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useTransform } from 'framer-motion';
+import { useScrollProgress } from './ScrollyCanvas';
 
 export default function Overlay() {
-  const { scrollYProgress } = useScroll();
+  // Get the scroll progress from ScrollyCanvas context
+  const scrollYProgress = useScrollProgress();
 
   // center: visible at start, fades quickly
   const centerY = useTransform(scrollYProgress, [0, 0.12], [0, -30]);
@@ -19,9 +21,9 @@ export default function Overlay() {
   const rightOpacity = useTransform(scrollYProgress, [0.55, 0.7], [0, 1]);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-30 flex items-center justify-center">
+    <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none">
       <motion.div style={{ y: centerY, opacity: centerOpacity }} className="absolute inset-0 flex items-center justify-center px-6">
-        <h1 className="text-5xl md:text-6xl font-extrabold text-white">My Name. Creative Developer.</h1>
+        <h1 className="text-5xl md:text-6xl font-extrabold text-white text-center">My Name. Creative Developer.</h1>
       </motion.div>
 
       <motion.div style={{ y: leftY, opacity: leftOpacity }} className="absolute left-8 top-1/3 max-w-md">
