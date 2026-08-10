@@ -1,13 +1,25 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { useScroll, useSpring } from "framer-motion";
+import React, { useEffect, useRef, useState, createContext, useContext } from "react";
+import { useScroll, useSpring, MotionValue } from "framer-motion";
+
+// Create context to share scroll progress with Overlay
+const ScrollProgressContext = createContext<MotionValue<number> | null>(null);
+
+export const useScrollProgress = () => {
+  const context = useContext(ScrollProgressContext);
+  if (!context) {
+    throw new Error("useScrollProgress must be used within ScrollyCanvas");
+  }
+  return context;
+};
 
 type ScrollyCanvasProps = {
   frameCount?: number;
   pathPrefix?: string;
   fileNameFactory?: (i: number) => string;
   className?: string;
+  children?: React.ReactNode;
 };
 
 export default function ScrollyCanvas({
@@ -15,6 +27,7 @@ export default function ScrollyCanvas({
   pathPrefix = "/sequence/",
   fileNameFactory = (i: number) => `frame_${String(i).padStart(2, "0")}_delay-0.067s.webp`,
   className,
+  children,
 }: ScrollyCanvasProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -180,19 +193,25 @@ export default function ScrollyCanvas({
   }, [loadedCount]);
 
   return (
-    <div ref={containerRef} className={`relative w-full h-[500vh] ${className ?? ""}`} aria-hidden>
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center">
-        <canvas
-          ref={canvasRef}
-          className="w-full h-full block"
-          style={{ objectFit: "cover", width: "100%", height: "100%", display: "block", backgroundColor: "transparent" }}
-        />
-        {loadedCount < frameCount && (
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <div className="text-white/80 bg-black/40 px-3 py-2 rounded-md backdrop-blur-sm border border-white/10">Loading frames — {Math.round((loadedCount / frameCount) * 100)}%</div>
+    <ScrollProgressContext.Provider value={smoothProgress}>
+      <div ref={containerRef} className={`relative w-full h-[500vh] ${className ?? ""}`} aria-hidden>
+        <div className="sticky top-0 h-screen w-full flex items-center justify-center">
+          <canvas
+            ref={canvasRef}
+            className="w-full h-full block"
+            style={{ objectFit: "cover", width: "100%", height: "100%", display: "block", backgroundColor: "transparent" }}
+          />
+          {loadedCount < frameCount && (
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+              <div className="text-white/80 bg-black/40 px-3 py-2 rounded-md backdrop-blur-sm border border-white/10">Loading frames — {Math.round((loadedCount / frameCount) * 100)}%</div>
+            </div>
+          )}
+          {/* Overlay positioned absolutely within scroll container */}
+          <div className="pointer-events-none absolute inset-0 z-30">
+            {children}
           </div>
-        )}
+        </div>
       </div>
-    </div>
+    </ScrollProgressContext.Provider>
   );
 }
