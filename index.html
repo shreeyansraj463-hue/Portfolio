@@ -1,115 +1,335 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Shreeyans Raj — Scrollytelling Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shreeyans Raj - Creative Technologist & Front-End Developer | 3D Web Experiences & AI Integration">
+    <meta name="keywords" content="Shreeyans Raj, portfolio, developer, Three.js, React, AI, creative technologist">
+    <meta name="author" content="Shreeyans Raj">
+    <meta name="theme-color" content="#000000">
+    
+    <title>Shreeyans Raj | Creative Technologist</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&family=Playfair+Display:wght@700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./app/globals.css">
+    <style>
+        /* Animations */
+        @keyframes logoAnim {
+            5% {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+            25% {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            30% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css">
+        @keyframes moveGradient {
+            0% { background-position: 0%; }
+            50% { background-position: 100%; }
+            100% { background-position: 0%; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes handWave {
+            0%, 10%, 20%, 30%, 40%, 50% { transform: rotate(0deg); }
+            5%, 15%, 25%, 35%, 45% { transform: rotate(-25deg); }
+        }
+
+        .logoName {
+            animation: logoAnim 12s ease-out infinite;
+            display: inline-block;
+        }
+
+        .logoName:nth-child(1) { animation-delay: 0s; }
+        .logoName:nth-child(2) { animation-delay: 0.1s; }
+        .logoName:nth-child(3) { animation-delay: 0.2s; }
+        .logoName:nth-child(4) { animation-delay: 0.3s; }
+        .logoName:nth-child(5) { animation-delay: 0.4s; }
+        .logoName:nth-child(6) { animation-delay: 0.5s; }
+        .logoName:nth-child(7) { animation-delay: 0.6s; }
+        .logoName:nth-child(8) { animation-delay: 0.7s; }
+        .logoName:nth-child(9) { animation-delay: 0.8s; }
+        .logoName:nth-child(10) { animation-delay: 0.9s; }
+        .logoName:nth-child(11) { animation-delay: 1s; }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .hand-wave {
+            animation: handWave 2.5s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        .gradient-text {
+            background: linear-gradient(60deg, #b721ff, #26ff9d, #ffec19, #ff417a);
+            background-size: 200%;
+            background-position: 0;
+            animation: moveGradient 6s alternate infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
 </head>
 <body>
-  <!-- thin top progress bar -->
-  <div id="scrubProg" class="scrub-progress" aria-hidden="true"></div>
+    <!-- 3D Canvas for Three.js -->
+    <canvas id="canvas3d"></canvas>
 
-  <!-- fixed profile hero -->
-  <aside class="hero" role="region" aria-label="Profile">
-    <div class="glass card-hero">
-      <img id="profileImg" class="avatar" src="assets/profile.jpg" alt="Shreeyans Raj — profile">
-      <div class="hero-meta">
-        <div class="name">Shreeyans Raj</div>
-        <div class="role">Creative Developer · Frontend & Interactive</div>
-        <div class="meta">JEE aspirant • WebGL • AI tools</div>
-      </div>
-    </div>
-
-    <div class="glass card-mini">
-      <div>
-        <div class="muted small">Location</div>
-        <div class="small">Patna, India</div>
-      </div>
-      <div class="text-right">
-        <div class="muted small">Availability</div>
-        <div class="small">Open to projects</div>
-      </div>
-    </div>
-
-    <div class="hero-actions">
-      <a class="glass btn" href="#" onclick="alert('Replace with your GitHub URL')">GitHub</a>
-      <a class="glass btn" href="#" onclick="alert('Replace with portfolio link')">Portfolio</a>
-    </div>
-  </aside>
-
-  <!-- Scrollytelling container (500vh) -->
-  <section id="scroller" class="scroller">
-    <div class="sticky-viewport">
-      <div class="canvas-viewport">
-        <canvas id="seqCanvas" role="img" aria-label="Animated profile sequence"></canvas>
-
-        <div id="loading" class="loading-wrap" aria-hidden="false">
-          <div class="loading-chip">Loading frames — <span id="loadingPct">0%</span></div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="#home" class="logo">
+            <span class="logoName">S</span><span class="logoName">h</span><span class="logoName">r</span><span class="logoName">e</span><span class="logoName">y</span><span class="logoName">a</span><span class="logoName">n</span><span class="logoName">s</span>
+        </a>
+        <div class="nav-links">
+            <a href="#about" class="nav-link">About</a>
+            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#contact" class="nav-link">Contact</a>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Overlay text -->
-  <div class="overlay" aria-hidden="true">
-    <div id="secCenter" class="overlay-center">
-      <h1 class="title-xl">My Name. Creative Developer.</h1>
-    </div>
-
-    <div id="secLeft" class="overlay-left">
-      <h2 class="title-lg">I build digital experiences.</h2>
-    </div>
-
-    <div id="secRight" class="overlay-right">
-      <h2 class="title-lg">Bridging design and engineering.</h2>
-    </div>
-  </div>
-
-  <!-- Main content after scrollytelling -->
-  <main class="main-content">
-    <section class="intro">
-      <div class="container">
-        <h2>Work & Interests</h2>
-        <p class="lead">Front-end experiments with Three.js, generative visuals, scrollytelling and AI-assisted tooling.</p>
-
-        <div class="grid projects">
-          <article class="project-card glass">
-            <div class="project-visual"></div>
-            <h3>Project A</h3>
-            <p>Interactive particle system — Three.js + shaders.</p>
-            <button class="btn-outline">View case</button>
-          </article>
-
-          <article class="project-card glass">
-            <div class="project-visual"></div>
-            <h3>Project B</h3>
-            <p>Generative visuals & motion systems.</p>
-            <button class="btn-outline">View case</button>
-          </article>
-
-          <article class="project-card glass">
-            <div class="project-visual"></div>
-            <h3>Project C</h3>
-            <p>Scrollytelling prototypes & experimental UI.</p>
-            <button class="btn-outline">View case</button>
-          </article>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-      </div>
-    </section>
+    </nav>
 
-    <section class="about container glass about-card">
-      <h3>About</h3>
-      <p><strong>Shreeyans Raj</strong> — JEE aspirant and creative developer. Focused on advanced math, physics, generative visuals, and interactive web experiences. Loves music, sketches, and helping others.</p>
-    </section>
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Hello, I'm <span class="gradient-text">Shreeyans</span></h1>
+                <p class="hero-subtitle">Creative Technologist & Front-End Developer</p>
+                <p class="hero-description">Bridging the gap between immersive 3D web experiences, traditional art, advanced AI workflows, and software engineering.</p>
+                <div class="hero-cta">
+                    <button class="btn btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Get In Touch</button>
+                    <button class="btn btn-secondary" onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'})">View My Work</button>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span class="mouse">
+                    <span class="wheel"></span>
+                </span>
+                <span class="text">Scroll to explore</span>
+            </div>
+        </section>
 
-    <footer class="container footer">
-      © <strong>Shreeyans Raj</strong> — crafted with care.
+        <!-- About Section -->
+        <section id="about" class="section about">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-content">
+                    <div class="about-text fade-in">
+                        <p><strong>Name:</strong> Shreeyans Raj</p>
+                        <p><strong>Preferred Name:</strong> Shrey</p>
+                        <p><strong>Nickname:</strong> Rishu</p>
+                        <p><strong>Age:</strong> 18 years old</p>
+                        <p class="about-bio">An 18-year-old creative technologist and front-end developer passionate about creating futuristic web experiences. I specialize in bridging the gap between immersive 3D web experiences, traditional art, advanced AI workflows, and software engineering.</p>
+                    </div>
+                    <div class="about-stats fade-in">
+                        <div class="stat-card">
+                            <h3>100+</h3>
+                            <p>Projects Completed</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>50+</h3>
+                            <p>Clients Satisfied</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>5+</h3>
+                            <p>Years Coding</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section skills">
+            <div class="container">
+                <h2 class="section-title">Technical Skills & Tools</h2>
+                
+                <div class="skills-grid">
+                    <div class="skill-category fade-in">
+                        <h3>Core Languages</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">HTML</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">Python</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h3>Frameworks & Libraries</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">Next.js</span>
+                            <span class="skill-tag">Tailwind CSS</span>
+                            <span class="skill-tag">Three.js</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h3>AI & Power Tools</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Google AI Studio</span>
+                            <span class="skill-tag">OpenAI Codex</span>
+                            <span class="skill-tag">ElevenLabs</span>
+                            <span class="skill-tag">Freepik AI</span>
+                            <span class="skill-tag">Firebase</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h3>Development Tools</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">VS Code</span>
+                            <span class="skill-tag">GitHub</span>
+                            <span class="skill-tag">Figma</span>
+                            <span class="skill-tag">Rocket.new</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section projects">
+            <div class="container">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="projects-carousel">
+                    <div class="project-card fade-in">
+                        <div class="project-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                        <h3>3D Interactive Portfolio</h3>
+                        <p>Immersive portfolio experience with Three.js animations and smooth scroll effects.</p>
+                        <div class="project-tags">
+                            <span>Three.js</span>
+                            <span>React</span>
+                            <span>WebGL</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card fade-in">
+                        <div class="project-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                        <h3>AI-Powered Content Generator</h3>
+                        <p>Web application leveraging OpenAI and ElevenLabs for dynamic content creation.</p>
+                        <div class="project-tags">
+                            <span>Next.js</span>
+                            <span>OpenAI</span>
+                            <span>Firebase</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card fade-in">
+                        <div class="project-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                        <h3>Generative Art Platform</h3>
+                        <p>Platform for creating and sharing AI-generated art with community features.</p>
+                        <div class="project-tags">
+                            <span>React</span>
+                            <span>Freepik AI</span>
+                            <span>Tailwind</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card fade-in">
+                        <div class="project-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
+                        <h3>Interactive Data Visualization</h3>
+                        <p>Beautiful data visualization dashboard with real-time updates and animations.</p>
+                        <div class="project-tags">
+                            <span>D3.js</span>
+                            <span>React</span>
+                            <span>Redux</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Creative Work Section -->
+        <section id="creative" class="section creative">
+            <div class="container">
+                <h2 class="section-title">Creative Endeavors</h2>
+                <div class="creative-grid">
+                    <div class="creative-card fade-in">
+                        <h3>🎨 Traditional Art</h3>
+                        <p>Detailed portraiture, eye studies, and expressive landscapes using sketch pens.</p>
+                    </div>
+                    <div class="creative-card fade-in">
+                        <h3>🎵 Musical Taste</h3>
+                        <p>Eclectic palette: Nusrat Fateh Ali Khan, Atif Aslam, Elvis, Eminem, KK</p>
+                    </div>
+                    <div class="creative-card fade-in">
+                        <h3>🍜 Culinary Preference</h3>
+                        <p>Vegetarian enthusiast. Loves gajar ka halua and soyabean tomato chutney.</p>
+                    </div>
+                    <div class="creative-card fade-in">
+                        <h3>💼 Professional Growth</h3>
+                        <p>Internshala Student Partner with leadership and marketing experience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section contact">
+            <div class="container">
+                <h2 class="section-title">Let's Connect <span class="hand-wave">👋</span></h2>
+                <p class="contact-subtitle">Have a project in mind? Let's collaborate!</p>
+                
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+
+                <div class="social-links">
+                    <a href="https://github.com/shreeyansraj463" target="_blank" class="social-icon">GitHub</a>
+                    <a href="https://linkedin.com/in/shreeyans-raj" target="_blank" class="social-icon">LinkedIn</a>
+                    <a href="https://twitter.com/shreeyansraj" target="_blank" class="social-icon">Twitter</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Shreeyans Raj. Crafted with <span class="gradient-text">creativity</span> and <span class="gradient-text">code</span>.</p>
     </footer>
-  </main>
 
-  <script src="js/app.js" defer></script>
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="./js/3d-background.js"></script>
+    <script src="./js/app.js"></script>
 </body>
 </html>
