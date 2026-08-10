@@ -30,8 +30,13 @@ html {
 .bg-bg { background-color: var(--bg); }
 
 /* Utility tweaks for the canvas container */
-.h-[500vh] { height: 500vh; }
+.h-\[500vh\] { height: 500vh; }
 
 /* responsive text */
 .text-5xl { font-size: 3rem; }
 @media (min-width: 768px) { .md\:text-6xl { font-size: 4rem; } }
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
